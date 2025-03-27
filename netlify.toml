@@ -1,0 +1,8 @@
+    [build]
+  publish = "."          # Carpeta donde está tu index.html
+  command = ""           # No necesitas comando de build si es HTML/CSS/JS puro
+
+[[redirects]]
+  from = "/*"
+  to = "/login.html"
+  status = 200
