@@ -20,7 +20,7 @@
     <input type="email" id="email" placeholder="Enter your email" />
     <input type="password" id="password" placeholder="Enter your password" />
     <button onclick="login()">Login</button>
-    <p>Don't have an account? <a href="#" onclick="signup()">Sign up</a></p>
+    <p>Don't have an account? <a href="#" onclick="signup(event)">Sign up</a></p>
   </div>
 
   <!-- ✅ Firebase SDKs para navegador (v8) -->
@@ -63,22 +63,24 @@
         });
     }
 
-    function signup() {
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value.trim();
+    function signup(event) {
+        event.preventDefault(); // 👈 Esto detiene el parpadeo
 
-      if (!email || !password) {
-        alert("Por favor completa el correo y la contraseña.");
-        return;
-      }
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
 
-      auth.createUserWithEmailAndPassword(email, password)
-        .then(userCredential => {
-          console.log("Usuario creado:", userCredential.user.email);
-          window.location.href = "index.html";
+        if (!email || !password) {
+            alert("Por favor completa el correo y la contraseña.");
+            return;
+        }
+
+        auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+        console.log("✅ Usuario creado:", userCredential.user.email);
+        window.location.href = "index.html"; // 🔄 redirige al home
         })
-        .catch(error => {
-          alert("Error al registrarse: " + error.message);
+        .catch((error) => {
+        alert("❌ Error al registrarse: " + error.message);
         });
     }
   </script>
