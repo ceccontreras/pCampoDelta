@@ -1,50 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carlos' Portfolio</title>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inicio - ProjectoCampo</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
 
-    <!-- 🌌 Background Video -->
-    <video autoplay muted loop id="bg-video">
-        <source src="video/background.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+  <video autoplay muted loop id="bg-video">
+    <source src="video/background.mp4" type="video/mp4" />
+  </video>
 
-    <!-- 🔒 Protected Content -->
-    <header>
-        <h1>PROJECTO CAMPO</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="portfolio.html">Portfolio</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+  <h1>Bienvenido a ProjectoCampo</h1>
+  <p>Estás autenticado. Aquí empieza la experiencia.</p>
+  <button onclick="logout()">Cerrar sesión</button>
 
-    <main>
-        <p>This is where you introduce yourself.</p>
-        <button onclick="netlifyIdentity.logout()">Logout</button>
-    </main>
+  <!-- Firebase SDKs -->
+  <!-- ✅ Firebase versión compatible con navegador directo (v8) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 
-    <footer>
-        <p>© 2025 Carlos Campos</p>
-    </footer>
+  <script>
+    const firebaseConfig = {
+    apiKey: "AIzaSyAenWJ_vTcvY87B2BS0JXtSOeorI9k13vtY",
+    authDomain: "projectocampo.firebaseapp.com",
+    projectId: "projectocampo",
+    storageBucket: "projectocampo.appspot.com",
+    messagingSenderId: "773709600047",
+    appId: "1:773709600047:web:79c3a5841e6c6a93ddbdba",
+    measurementId: "G-0T8EL34CJ9"
+    };
 
-    <script>
-        if (!netlifyIdentity.currentUser()) {
-            window.location.href = "login.html";
-        }
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
 
-        netlifyIdentity.on("logout", () => {
-            window.location.href = "login.html";
-        });
-    </script>
+
+    auth.onAuthStateChanged(user => {
+      if (!user) {
+        window.location.href = "login.html";
+      } else {
+        console.log("Usuario autenticado:", user.email);
+      }
+    });
+
+    function logout() {
+      auth.signOut().then(() => {
+        window.location.href = "login.html";
+      });
+    }
+  </script>
 </body>
 </html>
