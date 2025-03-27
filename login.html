@@ -25,27 +25,37 @@
   </div>
 
   <script>
-    function login() {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+    netlifyIdentity.on("init", user => {
+        if (user) {
+            window.location.href = "index.html";
+        }
+    });
 
-      netlifyIdentity.login(email, password).then(user => {
-        console.log("User logged in:", user);
-        window.location.href = "index.html";
-      }).catch(error => {
-        alert("Login failed: " + error.message);
-      });
+    function login() {
+        netlifyIdentity.open('login');
     }
 
     function signup() {
-      netlifyIdentity.signup().then(user => {
-        console.log("User signed up:", user);
-        window.location.href = "index.html";
-      }).catch(error => {
-        alert("Signup failed: " + error.message);
-      });
+        netlifyIdentity.open('signup');
     }
-  </script>
+
+    netlifyIdentity.on("login", user => {
+        console.log("Logged in as:", user);
+        window.location.href = "index.html";
+    });
+
+    netlifyIdentity.on("signup", user => {
+        console.log("Signed up as:", user);
+        window.location.href = "index.html";
+    });
+
+    netlifyIdentity.on("logout", () => {
+        window.location.href = "login.html";
+    });
+
+    netlifyIdentity.init();
+</script>
+
 
 </body>
 </html>
