@@ -8,7 +8,6 @@
 </head>
 <body>
 
-  <!-- 🎥 Background Video -->
   <video autoplay muted loop id="bg-video">
     <source src="video/background.mp4" type="video/mp4" />
   </video>
@@ -17,46 +16,38 @@
   <p>Estás autenticado. Aquí empieza la experiencia.</p>
   <button onclick="logout()">Cerrar sesión</button>
 
-  <!-- ✅ Firebase SDK v8 -->
+  <!-- Firebase SDK v8 -->
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 
   <script>
-    // ✅ Configuración
     const firebaseConfig = {
-    apiKey: "AIzaSyAenWJ_vTcvY87B2BS0JXtSOeorI9k13vtY",
-    authDomain: "projectocampo.firebaseapp.com",
-    projectId: "projectocampo",
-    storageBucket: "projectocampo.appspot.com",
-    messagingSenderId: "773709600047",
-    appId: "1:773709600047:web:79c3a5841e6c6a93ddbdba",
-    measurementId: "G-0T8EL34CJ9"
+      apiKey: "AIzaSyAenWJ_vTcvY87B2BS0JXtSOeorI9k13vtY",
+      authDomain: "projectocampo.firebaseapp.com",
+      projectId: "projectocampo",
+      storageBucket: "projectocampo.appspot.com",
+      messagingSenderId: "773709600047",
+      appId: "1:773709600047:web:79c3a5841e6c6a93ddbdba",
+      measurementId: "G-0T8EL34CJ9"
     };
 
-
-    // ✅ Inicializar solo si no ha sido inicializado antes
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-    }
-
+    firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    // ✅ Verificar sesión
     auth.onAuthStateChanged(user => {
       if (!user) {
-        console.warn("🔒 Usuario no autenticado. Redirigiendo...");
         window.location.href = "login.html";
       } else {
-        console.log("✅ Usuario autenticado:", user.email);
+        console.log("👋 Usuario autenticado:", user.email);
       }
     });
 
-    // 🔓 Logout
     function logout() {
       auth.signOut().then(() => {
         window.location.href = "login.html";
       });
     }
   </script>
+
 </body>
 </html>

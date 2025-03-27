@@ -11,7 +11,6 @@
   <!-- 🌊 Background Video -->
   <video autoplay muted loop id="bg-video">
     <source src="assets/video/background.mp4" type="video/mp4">
-    Your browser does not support the video tag.
   </video>
 
   <div class="login-container">
@@ -23,29 +22,25 @@
     <p>Don't have an account? <a href="#" onclick="signup(event)">Sign up</a></p>
   </div>
 
-  <!-- ✅ Firebase v8 (más compatible con browsers) -->
+  <!-- Firebase SDK v8 -->
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 
   <script>
-    // ✅ Configuración de Firebase
+    // ✅ Firebase Config (verifica que coincida con el que ves en Firebase)
     const firebaseConfig = {
-    apiKey: "AIzaSyAenWJ_vTcvY87B2BS0JXtSOeorI9k13vtY",
-    authDomain: "projectocampo.firebaseapp.com",
-    projectId: "projectocampo",
-    storageBucket: "projectocampo.appspot.com",
-    messagingSenderId: "773709600047",
-    appId: "1:773709600047:web:79c3a5841e6c6a93ddbdba",
-    measurementId: "G-0T8EL34CJ9"
+      apiKey: "AIzaSyAenWJ_vTcvY87B2BS0JXtSOeorI9k13vtY",
+      authDomain: "projectocampo.firebaseapp.com",
+      projectId: "projectocampo",
+      storageBucket: "projectocampo.appspot.com",
+      messagingSenderId: "773709600047",
+      appId: "1:773709600047:web:79c3a5841e6c6a93ddbdba",
+      measurementId: "G-0T8EL34CJ9"
     };
 
-    // ✅ Inicializar Firebase
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
-  </script>
 
-  <script>
-    // 👉 Login function
     function login() {
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value.trim();
@@ -58,18 +53,13 @@
       auth.signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
           console.log("✅ Login exitoso:", userCredential.user.email);
-          // 🔁 Pequeño delay por precaución
-          setTimeout(() => {
-            window.location.href = "index.html";
-          }, 300);
+          window.location.href = "index.html";
         })
         .catch((error) => {
-          console.error("❌ Error al iniciar sesión:", error);
-          alert("❌ Error: " + error.message);
+          alert("❌ Error al iniciar sesión: " + error.message);
         });
     }
 
-    // 👉 Signup function
     function signup(event) {
       event.preventDefault();
 
@@ -84,26 +74,13 @@
       auth.createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
           console.log("✅ Usuario creado:", userCredential.user.email);
-          setTimeout(() => {
-            window.location.href = "index.html";
-          }, 300);
+          window.location.href = "index.html";
         })
         .catch((error) => {
-          console.error("❌ Error al registrarse:", error);
-          alert("❌ Error: " + error.message);
+          alert("❌ Error al registrarse: " + error.message);
         });
     }
   </script>
-
-    <script>
-        // Verifica si el usuario ya está logeado y lo redirige automáticamente
-        auth.onAuthStateChanged((user) => {
-        if (user) {
-            console.log("Ya estás autenticado como:", user.email);
-            window.location.href = "index.html";
-        }
-        });
-    </script>
 
 </body>
 </html>
