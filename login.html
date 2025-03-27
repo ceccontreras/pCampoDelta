@@ -24,38 +24,56 @@
     <p>Don't have an account? <a href="#" onclick="signup()">Sign up</a></p>
   </div>
 
-  <script>
-    netlifyIdentity.on("init", user => {
-        if (user) {
-            window.location.href = "index.html";
-        }
-    });
+<!-- Firebase App (core) -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+<!-- Firebase Auth -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
 
-    function login() {
-        netlifyIdentity.open('login');
-    }
+<script>
+    const firebaseConfig = {
+        apiKey: "AlzaSyAenWJ_vTcvY87B2BS0JXtSOeorI9kI3vY",
+        authDomain: "projectocampo.firebaseapp.com",
+        projectId: "projectocampo",
+        storageBucket: "projectocampo.appspot.com",
+        messagingSenderId: "773709600047",
+        appId: "1:773709600047:web:79c3a5841e6c6a93ddbdba",
+        measurementId: "G-0T8EL34CJ9"
+    };
+  
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+  </script>  
 
-    function signup() {
-        netlifyIdentity.open('signup');
-    }
+<!-- 👉 Este script va después, porque ya tenemos `auth` definido -->
+<script>
+  function login() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-    netlifyIdentity.on("login", user => {
-        console.log("Logged in as:", user);
+    auth.signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        console.log("Login exitoso:", userCredential.user);
         window.location.href = "index.html";
-    });
+      })
+      .catch((error) => {
+        alert("Error al iniciar sesión: " + error.message);
+      });
+  }
 
-    netlifyIdentity.on("signup", user => {
-        console.log("Signed up as:", user);
+  function signup() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    auth.createUserWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        console.log("Usuario creado:", userCredential.user);
         window.location.href = "index.html";
-    });
-
-    netlifyIdentity.on("logout", () => {
-        window.location.href = "login.html";
-    });
-
-    netlifyIdentity.init();
+      })
+      .catch((error) => {
+        alert("Error al registrarse: " + error.message);
+      });
+  }
 </script>
-
 
 </body>
 </html>
