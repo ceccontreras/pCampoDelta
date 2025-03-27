@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carlos' Portfolio</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+
+    <!-- 🌌 Background Video -->
+    <video autoplay muted loop id="bg-video">
+        <source src="assets/video/background.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- 🔒 Protected Content -->
+    <header>
+        <h1>PROJECTO CAMPO</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <p>This is where you introduce yourself.</p>
+        <button onclick="netlifyIdentity.logout()">Logout</button>
+    </main>
+
+    <footer>
+        <p>© 2025 Carlos Campos</p>
+    </footer>
+
+    <script>
+        if (!netlifyIdentity.currentUser()) {
+            window.location.href = "login.html";
+        }
+
+        netlifyIdentity.on("logout", () => {
+            window.location.href = "login.html";
+        });
+    </script>
+</body>
+</html>

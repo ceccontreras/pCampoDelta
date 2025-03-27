@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - ProjectoCampo</title>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- 🌊 Background Video -->
+  <video autoplay muted loop id="bg-video">
+    <source src="assets/video/background.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <div class="login-container">
+    <h2>Welcome to ProjectoCampo</h2>
+    <p>Please log in to continue</p>
+    <input type="email" id="email" placeholder="Enter your email">
+    <input type="password" id="password" placeholder="Enter your password">
+    <button onclick="login()">Login</button>
+    <p>Don't have an account? <a href="#" onclick="signup()">Sign up</a></p>
+  </div>
+
+  <script>
+    function login() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      netlifyIdentity.login(email, password).then(user => {
+        console.log("User logged in:", user);
+        window.location.href = "index.html";
+      }).catch(error => {
+        alert("Login failed: " + error.message);
+      });
+    }
+
+    function signup() {
+      netlifyIdentity.signup().then(user => {
+        console.log("User signed up:", user);
+        window.location.href = "index.html";
+      }).catch(error => {
+        alert("Signup failed: " + error.message);
+      });
+    }
+  </script>
+
+</body>
+</html>
